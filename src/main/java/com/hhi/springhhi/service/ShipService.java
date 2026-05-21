@@ -7,11 +7,13 @@ import com.hhi.springhhi.dto.ShipCreateRequest;
 import com.hhi.springhhi.dto.ShipUpdateRequest;
 import com.hhi.springhhi.repository.ShipRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ShipService {
 
     private final ShipRepository shipRepository;
@@ -34,17 +36,18 @@ public class ShipService {
         return ship;
     }
 
+    @Transactional(readOnly = true)
     public List<Ship> getAllShips() {
 
         return shipRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Ship getShipById(String shipId) {
         Optional<Ship> theShip = shipRepository.findById(Long.parseLong(shipId));
         // 찾으려는 배가 없을때는 예외처리로 처리한다. TODO
-        return theShip.orElse(new Ship(
-                "SHIP_000", "NONAME", ShipType.BULK, 0, 0, ShipStatus.PLANNED
-        ));
+        return theShip.orElseThrow(
+                () ->  new IllegalArgumentException("배를 찾을수 없어요"));
     }
 
     public Ship modifyShip(String shipId, ShipUpdateRequest request) {
@@ -56,7 +59,6 @@ public class ShipService {
         ship.setLength(request.getLength());
         ship.setWeight(request.getWeight());
         ship.setStatus(request.getStatus());
-        shipRepository.save(ship);
         return ship;
     }
 }
