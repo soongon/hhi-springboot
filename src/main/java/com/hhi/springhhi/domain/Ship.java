@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Ship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private String shipNumber;

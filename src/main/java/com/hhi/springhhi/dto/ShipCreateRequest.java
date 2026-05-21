@@ -1,7 +1,7 @@
 package com.hhi.springhhi.dto;
 
 // data class, model class, domain class, vo
-public class Ship {
+public class ShipCreateRequest {
     private String id;
     private int shipNumber;
     private String name;
@@ -10,7 +10,7 @@ public class Ship {
     private double weight;
     private String status;
 
-    public Ship(String id, int shipNumber, String name, String type, double length, double weight, String status) {
+    public ShipCreateRequest(String id, int shipNumber, String name, String type, double length, double weight, String status) {
         this.id = id;
         this.shipNumber = shipNumber;
         this.name = name;

@@ -1,6 +1,6 @@
 package com.hhi.springhhi.controller;
 
-import com.hhi.springhhi.dto.Ship;
+import com.hhi.springhhi.dto.ShipCreateRequest;
 import com.hhi.springhhi.service.ShipService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,27 +17,28 @@ public class ShipController {
     }
 
     @GetMapping()
-    public List<Ship> getAllShips() {
+    public List<ShipCreateRequest> getAllShips() {
         return shipService.getAllShips();
     }
 
     @GetMapping("/{shipId}")
-    public Ship getShipById(@PathVariable String shipId) {
+    public ShipCreateRequest getShipById(@PathVariable String shipId) {
         return shipService.getShipById(shipId);
     }
 
     @PostMapping()
-    public String registShip(@RequestBody Ship ship) {
-        return ship.toString();
+    public String registShip(@RequestBody ShipCreateRequest shipCreateRequest) {
+
+        return shipService.registShip(shipCreateRequest);
     }
 
     @PutMapping("/{shipId}")
     public String modifyShip(
             @PathVariable String shipId,
-            @RequestBody Ship ship) {
+            @RequestBody ShipCreateRequest shipCreateRequest) {
         // ship 데이터를 db 에 인서트한다.
-        ship.setId(shipId);
-        System.out.println(ship);
-        return ship.toString();
+        shipCreateRequest.setId(shipId);
+        System.out.println(shipCreateRequest);
+        return shipCreateRequest.toString();
     }
 }
