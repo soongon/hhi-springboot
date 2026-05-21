@@ -1,8 +1,6 @@
 package com.hhi.springhhi.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -10,17 +8,25 @@ import java.util.Objects;
 @Table(name = "ships")
 public class Ship {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(unique = true, nullable = false)
     private String shipNumber;
     private String name;
-    private String type;
+
+    @Enumerated(EnumType.STRING)
+    private ShipType type;
+
     private double length;
     private double weight;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private ShipStatus status;
 
     public Ship() {}
 
-    public Ship(long id, String shipNumber, String name, String type, double length, double weight, String status) {
+    public Ship(long id, String shipNumber, String name, ShipType type, double length, double weight, ShipStatus status) {
         this.id = id;
         this.shipNumber = shipNumber;
         this.name = name;
@@ -54,11 +60,11 @@ public class Ship {
         this.name = name;
     }
 
-    public String getType() {
+    public ShipType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ShipType type) {
         this.type = type;
     }
 
@@ -78,11 +84,11 @@ public class Ship {
         this.weight = weight;
     }
 
-    public String getStatus() {
+    public ShipStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ShipStatus status) {
         this.status = status;
     }
 
