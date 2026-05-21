@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("api/ships")
 public class ShipController {
 
     private final ShipService shipService;
@@ -15,22 +16,22 @@ public class ShipController {
         this.shipService = shipService;
     }
 
-    @GetMapping("/ships")
+    @GetMapping()
     public List<Ship> getAllShips() {
         return shipService.getAllShips();
     }
 
-    @GetMapping("/ships/{shipId}")
+    @GetMapping("/{shipId}")
     public Ship getShipById(@PathVariable String shipId) {
         return shipService.getShipById(shipId);
     }
 
-    @PostMapping("/ships")
+    @PostMapping()
     public String registShip(@RequestBody Ship ship) {
         return ship.toString();
     }
 
-    @PutMapping("/ships/{shipId}")
+    @PutMapping("/{shipId}")
     public String modifyShip(
             @PathVariable String shipId,
             @RequestBody Ship ship) {
