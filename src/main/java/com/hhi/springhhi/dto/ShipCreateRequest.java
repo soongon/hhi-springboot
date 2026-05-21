@@ -1,16 +1,19 @@
 package com.hhi.springhhi.dto;
 
+import com.hhi.springhhi.domain.ShipStatus;
+import com.hhi.springhhi.domain.ShipType;
+
 // data class, model class, domain class, vo
 public class ShipCreateRequest {
     private String id;
-    private int shipNumber;
+    private String shipNumber;
     private String name;
-    private String type;
+    private ShipType type;
     private double length;
     private double weight;
-    private String status;
+    private ShipStatus status;
 
-    public ShipCreateRequest(String id, int shipNumber, String name, String type, double length, double weight, String status) {
+    public ShipCreateRequest(String id, String shipNumber, String name, ShipType type, double length, double weight, ShipStatus status) {
         this.id = id;
         this.shipNumber = shipNumber;
         this.name = name;
@@ -28,11 +31,11 @@ public class ShipCreateRequest {
         this.id = id;
     }
 
-    public int getShipNumber() {
+    public String getShipNumber() {
         return shipNumber;
     }
 
-    public void setShipNumber(int shipNumber) {
+    public void setShipNumber(String shipNumber) {
         this.shipNumber = shipNumber;
     }
 
@@ -44,11 +47,11 @@ public class ShipCreateRequest {
         this.name = name;
     }
 
-    public String getType() {
+    public ShipType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ShipType type) {
         this.type = type;
     }
 
@@ -68,11 +71,11 @@ public class ShipCreateRequest {
         this.weight = weight;
     }
 
-    public String getStatus() {
+    public ShipStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ShipStatus status) {
         this.status = status;
     }
 

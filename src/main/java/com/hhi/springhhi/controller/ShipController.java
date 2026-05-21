@@ -1,5 +1,6 @@
 package com.hhi.springhhi.controller;
 
+import com.hhi.springhhi.domain.Ship;
 import com.hhi.springhhi.dto.ShipCreateRequest;
 import com.hhi.springhhi.service.ShipService;
 import org.springframework.web.bind.annotation.*;
@@ -7,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/ships")
 public class ShipController {
 
     private final ShipService shipService;
@@ -16,23 +16,23 @@ public class ShipController {
         this.shipService = shipService;
     }
 
-    @GetMapping()
-    public List<ShipCreateRequest> getAllShips() {
+    @GetMapping("/ships")
+    public List<Ship> getAllShips() {
         return shipService.getAllShips();
     }
 
-    @GetMapping("/{shipId}")
+    @GetMapping("/ships/{shipId}")
     public ShipCreateRequest getShipById(@PathVariable String shipId) {
         return shipService.getShipById(shipId);
     }
 
-    @PostMapping()
-    public String registShip(@RequestBody ShipCreateRequest shipCreateRequest) {
+    @PostMapping("/ships")
+    public Ship registShip(@RequestBody ShipCreateRequest shipCreateRequest) {
 
         return shipService.registShip(shipCreateRequest);
     }
 
-    @PutMapping("/{shipId}")
+    @PutMapping("/ships/{shipId}")
     public String modifyShip(
             @PathVariable String shipId,
             @RequestBody ShipCreateRequest shipCreateRequest) {

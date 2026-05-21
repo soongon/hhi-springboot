@@ -26,8 +26,7 @@ public class Ship {
 
     public Ship() {}
 
-    public Ship(long id, String shipNumber, String name, ShipType type, double length, double weight, ShipStatus status) {
-        this.id = id;
+    public Ship(String shipNumber, String name, ShipType type, double length, double weight, ShipStatus status) {
         this.shipNumber = shipNumber;
         this.name = name;
         this.type = type;

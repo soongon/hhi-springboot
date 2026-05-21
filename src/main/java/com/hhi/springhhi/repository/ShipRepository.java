@@ -9,17 +9,5 @@ import java.util.Optional;
 
 public interface ShipRepository extends JpaRepository<Ship, Long> {
 
-    @Override
-    List<Ship> findAll();
-
-    @Override
-    Optional<Ship> findById(Long aLong);
-
-    @Override
-    void deleteById(Long aLong);
-
-    @Override
-    Ship save(Ship entity);  // upsert
-
     Optional<Ship> findByShipNumber(String shipNumber);
 }
