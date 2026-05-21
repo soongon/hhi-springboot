@@ -5,6 +5,7 @@ import com.hhi.springhhi.domain.ShipStatus;
 import com.hhi.springhhi.domain.ShipType;
 import com.hhi.springhhi.dto.ShipCreateRequest;
 import com.hhi.springhhi.dto.ShipUpdateRequest;
+import com.hhi.springhhi.exception.HhiShipException;
 import com.hhi.springhhi.repository.ShipRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,8 +53,9 @@ public class ShipService {
 
     public Ship modifyShip(String shipId, ShipUpdateRequest request) {
 
-        Optional<Ship> optionalShip = shipRepository.findById(Long.parseLong(shipId));
-        Ship ship = optionalShip.get();
+        Ship ship = shipRepository.findById(Long.parseLong(shipId))
+                        .orElseThrow(() -> new HhiShipException("배가 없어요"));
+
         ship.setName(request.getName());
         ship.setType(request.getType());
         ship.setLength(request.getLength());
