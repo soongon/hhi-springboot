@@ -1,11 +1,15 @@
 package com.hhi.springhhi.service;
 
 import com.hhi.springhhi.domain.Ship;
+import com.hhi.springhhi.domain.ShipStatus;
+import com.hhi.springhhi.domain.ShipType;
 import com.hhi.springhhi.dto.ShipCreateRequest;
+import com.hhi.springhhi.dto.ShipUpdateRequest;
 import com.hhi.springhhi.repository.ShipRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ShipService {
@@ -35,12 +39,24 @@ public class ShipService {
         return shipRepository.findAll();
     }
 
-    public ShipCreateRequest getShipById(String shipId) {
-        return null;
+    public Ship getShipById(String shipId) {
+        Optional<Ship> theShip = shipRepository.findById(Long.parseLong(shipId));
+        // 찾으려는 배가 없을때는 예외처리로 처리한다. TODO
+        return theShip.orElse(new Ship(
+                "SHIP_000", "NONAME", ShipType.BULK, 0, 0, ShipStatus.PLANNED
+        ));
     }
 
-    public ShipCreateRequest modifyShip(String shipId) {
+    public Ship modifyShip(String shipId, ShipUpdateRequest request) {
 
-        return null;
+        Optional<Ship> optionalShip = shipRepository.findById(Long.parseLong(shipId));
+        Ship ship = optionalShip.get();
+        ship.setName(request.getName());
+        ship.setType(request.getType());
+        ship.setLength(request.getLength());
+        ship.setWeight(request.getWeight());
+        ship.setStatus(request.getStatus());
+        shipRepository.save(ship);
+        return ship;
     }
 }

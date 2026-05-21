@@ -2,6 +2,7 @@ package com.hhi.springhhi.controller;
 
 import com.hhi.springhhi.domain.Ship;
 import com.hhi.springhhi.dto.ShipCreateRequest;
+import com.hhi.springhhi.dto.ShipUpdateRequest;
 import com.hhi.springhhi.service.ShipService;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class ShipController {
     }
 
     @GetMapping("/ships/{shipId}")
-    public ShipCreateRequest getShipById(@PathVariable String shipId) {
+    public Ship getShipById(@PathVariable String shipId) {
         return shipService.getShipById(shipId);
     }
 
@@ -33,12 +34,9 @@ public class ShipController {
     }
 
     @PutMapping("/ships/{shipId}")
-    public String modifyShip(
+    public Ship modifyShip(
             @PathVariable String shipId,
-            @RequestBody ShipCreateRequest shipCreateRequest) {
-        // ship 데이터를 db 에 인서트한다.
-        shipCreateRequest.setId(shipId);
-        System.out.println(shipCreateRequest);
-        return shipCreateRequest.toString();
+            @RequestBody ShipUpdateRequest request) {
+        return shipService.modifyShip(shipId, request);
     }
 }
