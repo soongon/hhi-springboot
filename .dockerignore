@@ -1,0 +1,22 @@
+# 빌드 산출물 (이미지 안에서 다시 빌드하므로 컨텍스트에 넣지 않는다)
+build/
+.gradle/
+
+# IDE / 메타
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# VCS
+.git/
+.gitignore
+.gitattributes
+
+# OS
+.DS_Store
+
+# 도커 관련 파일 자체
+Dockerfile
+.dockerignore
+docker-compose.yml

@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .                      # 현재 디렉터리의 Dockerfile로 이미지 빌드
+    image: hhi-springboot:0.0.1
+    container_name: hhi-springboot
+    ports:
+      - "8081:8080"               # 호스트 8081 -> 컨테이너 8080 (로컬 8080 점유 회피)
+    environment:
+      # 필요 시 프로파일/JVM 옵션을 여기서 주입한다. (H2 인메모리라 DB 설정은 불필요)
+      - SPRING_PROFILES_ACTIVE=default
+    restart: unless-stopped
