@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "ships")
@@ -42,11 +41,11 @@ public class Ship {
         this.status = status;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -98,16 +97,30 @@ public class Ship {
         this.status = status;
     }
 
+    public List<Block> getBlocks() {
+        return blocks;
+    }
+
+    // 양방향 연관관계 편의 메서드: 양쪽 참조를 함께 맞춰준다.
+    public void addBlock(Block block) {
+        blocks.add(block);
+        block.setParentShip(this);
+    }
+
+    // JPA 엔티티는 식별자(id)로만 동일성을 판단한다.
+    // (모든 필드 기반 equals/hashCode는 영속 상태에 따라 값이 바뀌어 컬렉션에서 문제를 일으킴)
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ship ship = (Ship) o;
-        return id == ship.id && Double.compare(length, ship.length) == 0 && Double.compare(weight, ship.weight) == 0 && Objects.equals(shipNumber, ship.shipNumber) && Objects.equals(name, ship.name) && Objects.equals(type, ship.type) && Objects.equals(status, ship.status);
+        return id != null && id.equals(ship.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, shipNumber, name, type, length, weight, status);
+        // id가 부여되기 전후로 hashCode가 바뀌지 않도록 클래스 단위 상수를 사용한다.
+        return getClass().hashCode();
     }
 
     @Override

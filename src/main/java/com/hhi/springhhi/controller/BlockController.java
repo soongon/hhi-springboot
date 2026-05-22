@@ -1,8 +1,9 @@
 package com.hhi.springhhi.controller;
 
-import com.hhi.springhhi.domain.Block;
+import com.hhi.springhhi.dto.BlockCreateRequest;
 import com.hhi.springhhi.dto.BlockResponse;
 import com.hhi.springhhi.service.BlockService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,15 +19,15 @@ public class BlockController {
 
     // 블럭 생성
     @PostMapping("/ships/{shipId}/blocks")
-    public Block registBlock(
+    public BlockResponse registBlock(
             @PathVariable Long shipId,
-            @RequestBody Block block) {
-        return blockService.registBlockWithParentShip(shipId, block);
+            @Valid @RequestBody BlockCreateRequest request) {
+        return blockService.registBlockWithParentShip(shipId, request);
     }
 
     // 배의 블럭 전체보기
     @GetMapping("/ships/{shipId}/blocks")
-    public List<BlockResponse> getBlocksByShipId(@PathVariable String shipId) {
+    public List<BlockResponse> getBlocksByShipId(@PathVariable Long shipId) {
         return blockService.getBlocksByShipId(shipId);
     }
 }

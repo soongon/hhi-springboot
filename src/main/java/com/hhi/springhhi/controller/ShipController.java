@@ -1,10 +1,10 @@
 package com.hhi.springhhi.controller;
 
-import com.hhi.springhhi.domain.Ship;
 import com.hhi.springhhi.dto.ShipCreateRequest;
 import com.hhi.springhhi.dto.ShipResponse;
 import com.hhi.springhhi.dto.ShipUpdateRequest;
 import com.hhi.springhhi.service.ShipService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -28,20 +28,20 @@ public class ShipController {
     }
 
     @GetMapping("/ships/{shipId}")
-    public ShipResponse getShipById(@PathVariable String shipId) {
+    public ShipResponse getShipById(@PathVariable Long shipId) {
         return shipService.getShipById(shipId);
     }
 
     @PostMapping("/ships")
-    public ShipResponse registShip(@RequestBody ShipCreateRequest shipCreateRequest) {
+    public ShipResponse registShip(@Valid @RequestBody ShipCreateRequest shipCreateRequest) {
 
         return shipService.registShip(shipCreateRequest);
     }
 
     @PutMapping("/ships/{shipId}")
     public ShipResponse modifyShip(
-            @PathVariable String shipId,
-            @RequestBody ShipUpdateRequest request) {
+            @PathVariable Long shipId,
+            @Valid @RequestBody ShipUpdateRequest request) {
         return shipService.modifyShip(shipId, request);
     }
 }
