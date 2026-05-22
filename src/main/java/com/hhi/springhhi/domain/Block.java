@@ -23,8 +23,7 @@ public class Block {
 
     public Block() {}
 
-    public Block(long id, String blockcode, String blockType, double weight, BlockStatus status, Ship parentShip) {
-        this.id = id;
+    public Block(String blockcode, String blockType, double weight, BlockStatus status, Ship parentShip) {
         this.blockCode = blockcode;
         this.blockType = blockType;
         this.weight = weight;
@@ -40,11 +39,11 @@ public class Block {
         this.id = id;
     }
 
-    public String getCode() {
+    public String getBlockCode() {
         return blockCode;
     }
 
-    public void setCode(String code) {
+    public void setBlockCode(String code) {
         this.blockCode = code;
     }
 

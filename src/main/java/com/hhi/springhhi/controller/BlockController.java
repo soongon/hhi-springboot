@@ -26,7 +26,7 @@ public class BlockController {
 
     // 배의 블럭 전체보기
     @GetMapping("/ships/{shipId}/blocks")
-    public List<Block> getBlocksByShipId(@PathVariable String shipId) {
+    public List<BlockResponse> getBlocksByShipId(@PathVariable String shipId) {
         return blockService.getBlocksByShipId(shipId);
     }
 }
