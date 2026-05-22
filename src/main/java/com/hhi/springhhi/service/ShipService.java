@@ -4,6 +4,7 @@ import com.hhi.springhhi.domain.Ship;
 import com.hhi.springhhi.domain.ShipStatus;
 import com.hhi.springhhi.domain.ShipType;
 import com.hhi.springhhi.dto.ShipCreateRequest;
+import com.hhi.springhhi.dto.ShipResponse;
 import com.hhi.springhhi.dto.ShipUpdateRequest;
 import com.hhi.springhhi.exception.HhiShipException;
 import com.hhi.springhhi.repository.ShipRepository;
@@ -38,20 +39,25 @@ public class ShipService {
     }
 
     @Transactional(readOnly = true)
-    public List<Ship> getAllShips() {
+    public List<ShipResponse> getAllShips() {
 
-        return shipRepository.findAll();
+        List<Ship> ships = shipRepository.findAll();
+        // ships 을 shipResponse(DTO)로 옮겨담는다.
+        ShipResponse shipResponse;
+        return null;
     }
 
     @Transactional(readOnly = true)
-    public Ship getShipById(String shipId) {
+    public ShipResponse getShipById(String shipId) {
         Optional<Ship> theShip = shipRepository.findById(Long.parseLong(shipId));
         // 찾으려는 배가 없을때는 예외처리로 처리한다. TODO
-        return theShip.orElseThrow(
+        Ship ship = theShip.orElseThrow(
                 () ->  new IllegalArgumentException("배를 찾을수 없어요"));
+
+        return ShipResponse.from(ship);
     }
 
-    public Ship modifyShip(String shipId, ShipUpdateRequest request) {
+    public ShipResponse modifyShip(String shipId, ShipUpdateRequest request) {
 
         Ship ship = shipRepository.findById(Long.parseLong(shipId))
                         .orElseThrow(() -> new HhiShipException("배가 없어요"));
@@ -61,6 +67,6 @@ public class ShipService {
         ship.setLength(request.getLength());
         ship.setWeight(request.getWeight());
         ship.setStatus(request.getStatus());
-        return ship;
+        return ShipResponse.from(ship);
     }
 }
