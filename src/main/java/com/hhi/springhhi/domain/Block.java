@@ -9,22 +9,23 @@ public class Block {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String code;
+    @Column(nullable = false)
+    private String blockCode;
     private String blockType;
     private double weight;
 
     @Enumerated(EnumType.STRING)
-    private BuildStatus status;
+    private BlockStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ship_id")
+    @JoinColumn(name = "ship_id", nullable = false)
     private Ship parentShip;
 
     public Block() {}
 
-    public Block(long id, String code, String blockType, double weight, BuildStatus status, Ship parentShip) {
+    public Block(long id, String blockcode, String blockType, double weight, BlockStatus status, Ship parentShip) {
         this.id = id;
-        this.code = code;
+        this.blockCode = blockcode;
         this.blockType = blockType;
         this.weight = weight;
         this.status = status;
@@ -40,11 +41,11 @@ public class Block {
     }
 
     public String getCode() {
-        return code;
+        return blockCode;
     }
 
     public void setCode(String code) {
-        this.code = code;
+        this.blockCode = code;
     }
 
     public String getBlockType() {
@@ -63,11 +64,11 @@ public class Block {
         this.weight = weight;
     }
 
-    public BuildStatus getStatus() {
+    public BlockStatus getStatus() {
         return status;
     }
 
-    public void setStatus(BuildStatus status) {
+    public void setStatus(BlockStatus status) {
         this.status = status;
     }
 
@@ -83,7 +84,7 @@ public class Block {
     public String toString() {
         return "Block{" +
                 "id=" + id +
-                ", code='" + code + '\'' +
+                ", blockCode='" + blockCode + '\'' +
                 ", blockType='" + blockType + '\'' +
                 ", weight=" + weight +
                 ", status=" + status +

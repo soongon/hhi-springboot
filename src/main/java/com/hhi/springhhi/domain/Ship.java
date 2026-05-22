@@ -2,6 +2,8 @@ package com.hhi.springhhi.domain;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -23,6 +25,11 @@ public class Ship {
 
     @Enumerated(EnumType.STRING)
     private ShipStatus status;
+
+    // ===== ★ 양방향 연관관계 추가 =====
+    @OneToMany(mappedBy = "parentShip", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Block> blocks = new ArrayList<>();
+
 
     public Ship() {}
 
