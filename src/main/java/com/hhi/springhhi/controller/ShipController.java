@@ -4,6 +4,8 @@ import com.hhi.springhhi.dto.ShipCreateRequest;
 import com.hhi.springhhi.dto.ShipResponse;
 import com.hhi.springhhi.dto.ShipUpdateRequest;
 import com.hhi.springhhi.service.ShipService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +23,9 @@ public class ShipController {
         this.shipService = shipService;
     }
 
+    @Operation(summary = "호선 전체보기", description = "호선을 전체 조회합니다.")
+    @ApiResponse(responseCode = "200", description = "조회 성공")
+    @ApiResponse(responseCode = "400", description = "조회 실패")
     @GetMapping("/ships")
     public List<ShipResponse> getAllShips() {
         log.debug("전체보기 컨트롤러 시작..");
